@@ -1,22 +1,21 @@
-console.log('welcome to the game!');
+alert('Welcome to rock, paper, scissors!');
+let computerScore = 0;
+let humanScore = 0;
 
 function getComputerChoice() {
-  const randomNumber = Math.floor(Math.random() * 3);
   const choiceArray = ['rock', 'paper', 'scissors'];
+  const randomNumber = Math.floor(Math.random() * 3);
   const computerChoice = choiceArray[randomNumber];
   return computerChoice;
 }
 
 function getHumanChoice() {
-  const humanInput = parseInt(prompt('rock, paper, or scissors? Enter 0 for rock, 1 for paper, 2 for scissors.'));
   const choiceArray = ['rock', 'paper', 'scissors'];
+  const humanInput = parseInt(prompt('Rock, paper, or scissors? Enter 0 for rock, 1 for paper, 2 for scissors.'));
   const humanChoice = choiceArray[humanInput];
   return humanChoice;
 }
 
-
-let computerScore = 0;
-let humanScore = 0;
 
 function playRound(humanChoice, computerChoice) {
   let roundEvalMessage;
@@ -61,10 +60,53 @@ function playRound(humanChoice, computerChoice) {
       }
   } 
 }
-playRound();
+
 // Round 1
 getHumanChoice();
+playRound();
 let result = playRound(getHumanChoice(), getComputerChoice());
-console.log(result);
-console.log(`Your score: ${humanScore}, computer score: ${computerScore}`);
+alert(result);
+alert(`Your score: ${humanScore}, computer score: ${computerScore}`);
+
 //Round 2
+getHumanChoice();
+playRound();
+result = playRound(getHumanChoice(), getComputerChoice());
+alert(result);
+alert(`Your score: ${humanScore}, computer score: ${computerScore}`);
+
+//Round 3
+getHumanChoice();
+playRound();
+result = playRound(getHumanChoice(), getComputerChoice());
+alert(result);
+alert(`Your score: ${humanScore}, computer score: ${computerScore}`);
+
+//Round 4
+getHumanChoice();
+playRound();
+result = playRound(getHumanChoice(), getComputerChoice());
+alert(result);
+alert(`Your score: ${humanScore}, computer score: ${computerScore}`);
+
+//Round 5
+getHumanChoice();
+playRound();
+result = playRound(getHumanChoice(), getComputerChoice());
+alert(result);
+alert(`Your score: ${humanScore}, computer score: ${computerScore}`);
+
+//Evaluate winner
+function evaluateWinner() {
+  if (humanScore === computerScore) {
+    alert('Tie!');
+  } else if (humanScore > computerScore) {
+    alert('Congratualions: You Win!')
+  } else {
+    alert('Sorry: You Lose!');
+  }
+
+  //Write code to let user choose to play again
+}
+
+evaluateWinner();
