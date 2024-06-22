@@ -60,13 +60,15 @@ function playRound(humanChoice, computerChoice) {
       }
   } 
 }
-
+/*
 // Round 1
 getHumanChoice();
 playRound();
 let result = playRound(getHumanChoice(), getComputerChoice());
 alert(result);
 alert(`Your score: ${humanScore}, computer score: ${computerScore}`);
+
+FIVE ROUND LOGIC
 
 //Round 2
 getHumanChoice();
@@ -96,6 +98,7 @@ result = playRound(getHumanChoice(), getComputerChoice());
 alert(result);
 alert(`Your score: ${humanScore}, computer score: ${computerScore}`);
 
+
 //Evaluate winner
 function evaluateWinner() {
   if (humanScore === computerScore) {
@@ -105,8 +108,10 @@ function evaluateWinner() {
   } else {
     alert('Sorry: You Lose!');
   }
+  
 
   //Write code to let user choose to play again
 }
 
 evaluateWinner();
+*/
