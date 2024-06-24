@@ -1,0 +1,76 @@
+body {
+  background: linear-gradient(135deg, purple, pink, rgb(191, 103, 147), blue);
+  color: #fff;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: rgba(30, 30, 30, 0.5);
+  padding: 40px;
+  border-radius: 10px;
+}
+
+h1 {
+  text-align: center;
+  margin-top: -5px;
+}
+
+#resultsDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+#scoreDisplay {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.name {
+  color: cyan;
+}
+
+.controls {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-around;
+}
+
+button {
+  font-family: 'Courier New', Courier, monospace;
+  border: none;
+  background-color: #111;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: #222;
+}
+
+button:active {
+  background-color: #fff;
+  color: #000;
+}
+
+#playAgainButton {
+  display: none;
+  margin: 20px auto 10px auto;
+  width: 90%;
+}
+
+#playAgainButton:hover {
+  background-color: #222;
+}
+
+#playAgainButton:active {
+  background-color: #fff;
+  color: #000;
+}

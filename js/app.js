@@ -1,117 +1,92 @@
-alert('Welcome to rock, paper, scissors!');
-let computerScore = 0;
-let humanScore = 0;
+document.addEventListener('DOMContentLoaded', () => {
 
-function getComputerChoice() {
-  const choiceArray = ['rock', 'paper', 'scissors'];
-  const randomNumber = Math.floor(Math.random() * 3);
-  const computerChoice = choiceArray[randomNumber];
-  return computerChoice;
-}
+  const resultsDisplay = document.querySelector('#resultsDisplay');
+  const scoreDisplay = document.querySelector('#scoreDisplay');
+  const rockButton = document.querySelector('#rockButton');
+  const paperButton = document.querySelector('#paperButton');
+  const scissorsButton = document.querySelector('#scissorsButton');
+  const playAgainButton = document.querySelector('#playAgainButton');
 
-function getHumanChoice() {
-  const choiceArray = ['rock', 'paper', 'scissors'];
-  const humanInput = parseInt(prompt('Rock, paper, or scissors? Enter 0 for rock, 1 for paper, 2 for scissors.'));
-  const humanChoice = choiceArray[humanInput];
-  return humanChoice;
-}
-
-
-function playRound(humanChoice, computerChoice) {
-  let roundEvalMessage;
-  switch (humanChoice) {
-    case 'rock': 
-      if (computerChoice == 'rock') {
-        roundEvalMessage = 'Tie!';
-        return roundEvalMessage;
-      } else if (computerChoice == 'paper') {
-        roundEvalMessage = 'Paper covers rock: you lose!';
-        computerScore++;
-        return roundEvalMessage;
-      } else if (computerChoice == 'scissors') {
-        roundEvalMessage = 'Rock smashes scissors: you win!';
-        humanScore++;
-        return roundEvalMessage;
-      }
-    case 'paper': 
-      if (computerChoice == 'rock') {
-        roundEvalMessage = 'Paper covers rock: you win!';
-        humanScore++;
-        return roundEvalMessage;
-      } else if (computerChoice == 'paper') {
-        roundEvalMessage = 'Tie!';
-        return roundEvalMessage;
-      } else if (computerChoice == 'scissors') {
-        roundEvalMessage == 'Scissors cuts paper: you lose!';
-        computerChoice++;
-      }
-    case 'scissors':
-      if (computerChoice == 'rock') {
-        roundEvalMessage = 'Rock smashes scissors: you lose!';
-        computerScore++;
-        return roundEvalMessage;
-      } else if (computerChoice == 'paper') {
-        roundEvalMessage = 'Scissors cuts paper: you win!';
-        humanScore++;
-        return roundEvalMessage;
-      } else if (computerChoice == 'scissors') {
-        roundEvalMessage = 'Tie!';
-        return roundEvalMessage;
-      }
-  } 
-}
-/*
-// Round 1
-getHumanChoice();
-playRound();
-let result = playRound(getHumanChoice(), getComputerChoice());
-alert(result);
-alert(`Your score: ${humanScore}, computer score: ${computerScore}`);
-
-FIVE ROUND LOGIC
-
-//Round 2
-getHumanChoice();
-playRound();
-result = playRound(getHumanChoice(), getComputerChoice());
-alert(result);
-alert(`Your score: ${humanScore}, computer score: ${computerScore}`);
-
-//Round 3
-getHumanChoice();
-playRound();
-result = playRound(getHumanChoice(), getComputerChoice());
-alert(result);
-alert(`Your score: ${humanScore}, computer score: ${computerScore}`);
-
-//Round 4
-getHumanChoice();
-playRound();
-result = playRound(getHumanChoice(), getComputerChoice());
-alert(result);
-alert(`Your score: ${humanScore}, computer score: ${computerScore}`);
-
-//Round 5
-getHumanChoice();
-playRound();
-result = playRound(getHumanChoice(), getComputerChoice());
-alert(result);
-alert(`Your score: ${humanScore}, computer score: ${computerScore}`);
-
-
-//Evaluate winner
-function evaluateWinner() {
-  if (humanScore === computerScore) {
-    alert('Tie!');
-  } else if (humanScore > computerScore) {
-    alert('Congratualions: You Win!')
-  } else {
-    alert('Sorry: You Lose!');
-  }
   
 
-  //Write code to let user choose to play again
-}
+  let humanChoice;
+  let roundEvalMessage;
+  let computerScore = 0;
+  let humanScore = 0;
+  let name;
 
-evaluateWinner();
-*/
+  greet();
+  playRound();
+  
+  function greet() {
+    name = prompt('What is your name?');
+    if (!name) {
+      resultsDisplay.innerHTML = `<div class="greeting">Welcome friend!</div>
+    <div class="invitation">Let's play rock, paper, scissors.</div>`;
+    } else {
+    resultsDisplay.innerHTML = `<div class="greeting">Welcome <span class="name">${name}</span>!</div>
+    <div class="invitation">Let's play rock, paper, scissors.</div>`;
+    }
+    updateScore();
+  }
+
+  function playRound() {
+    rockButton.addEventListener('click', () => handleChoice('rock'));
+    paperButton.addEventListener('click', () => handleChoice('paper'));
+    scissorsButton.addEventListener('click', () => handleChoice('scissors'));
+  }
+
+  function handleChoice(choice) {
+    humanChoice = choice;
+    const computerChoice = getComputerChoice();
+    evalRound(humanChoice, computerChoice);
+    updateResults(humanChoice, computerChoice, roundEvalMessage);
+    updateScore();
+    if (humanScore === 5 || computerScore === 5) {
+      evaluateWinner();
+    }
+  }
+
+  function getComputerChoice() {
+    const choiceArray = ['rock', 'paper', 'scissors'];
+    const randomNumber = Math.floor(Math.random() * 3);
+    return choiceArray[randomNumber];
+  }
+
+  function evalRound(humanChoice, computerChoice) {
+    if (humanChoice === computerChoice) {
+      roundEvalMessage = 'It\'s a Tie! Select again.';
+    } else if (
+      (humanChoice === 'rock' && computerChoice === 'scissors') ||
+      (humanChoice === 'paper' && computerChoice === 'rock') ||
+      (humanChoice === 'scissors' && computerChoice === 'paper')
+    ) {
+      roundEvalMessage = `You chose ${humanChoice} and the computer chose ${computerChoice}. You win this round! Select again.`;
+      humanScore++;
+    } else {
+      roundEvalMessage = `You chose ${humanChoice} and the computer chose ${computerChoice}. You lose this round! Select again.`;
+      computerScore++;
+    }
+  }
+
+  function updateResults(humanChoice, computerChoice, roundEvalMessage) {
+    resultsDisplay.innerHTML = `
+      <div>${roundEvalMessage}</div>`;
+  }
+
+  function updateScore() {
+    scoreDisplay.innerHTML = `Score- ${name || 'Player'}: ${humanScore}, Computer: ${computerScore}`;
+  }
+
+  function evaluateWinner() {
+    let finalMessage;
+    if (humanScore > computerScore) {
+      finalMessage = `Congratulations ${name || 'Player'}, you win the game!`;
+    } else {
+      finalMessage = `Sorry ${name || 'Player'}, you lost the game. Try again!`;
+    }
+    alert(finalMessage);
+    playAgainButton.style.display = 'block';
+    playAgainButton.addEventListener('click', () => location.reload());
+  }
+});
